@@ -18,6 +18,7 @@ export async function loginUser(data: IUserSubmit): Promise<IUser | undefined> {
         const response = await conduitApi.post('/users/login', {
             user: data
         });
+        console.log(response.data);
         return (response.data as IUserResponse).user;
     } catch (e) {
         console.error(e)
