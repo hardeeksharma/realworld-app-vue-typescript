@@ -21,7 +21,7 @@ const routes = [
         component: () => import('@/views/Settings.vue')
     },
     {
-        path: '/profile',
+        path: '/:username(@.*)',
         name: 'profile',
         component: () => import('@/views/Profile.vue')
     },
@@ -40,6 +40,7 @@ const routes = [
         name: 'article',
         component: () => import('@/views/Article.vue')
     }
+
 ]
 
 const router = new VueRouter({
