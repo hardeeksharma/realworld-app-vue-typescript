@@ -5,6 +5,10 @@ export interface IProfile {
     following: boolean;
 }
 
+export interface ProfileResponse {
+    profile: IProfile
+}
+
 export interface IUser {
     email: string;
     token: string;
@@ -28,6 +32,7 @@ export interface ArticleResponse {
     articles?: (Article)[] | null;
     articlesCount: number;
 }
+
 export interface Article {
     slug: string;
     title: string;
@@ -40,6 +45,7 @@ export interface Article {
     favoritesCount: number;
     author: Author;
 }
+
 export interface Author {
     username: string;
     bio: string;

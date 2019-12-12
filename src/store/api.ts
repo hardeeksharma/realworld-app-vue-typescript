@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {ArticleResponse, IUser, IUserResponse, IUserSubmit} from "@/store/modules";
+import {async} from "q";
 
 export const conduitApi = axios.create({
     baseURL: 'https://conduit.productionready.io/api'
@@ -28,4 +29,9 @@ export async function loginUser(data: IUserSubmit): Promise<IUser | undefined> {
 export async function getGlobalFeed() {
     const response = await conduitApi.get('/articles');
     return response.data as ArticleResponse;
+}
+
+export async function fetchProfile(username: string) {
+    const response = await conduitApi.get(`/profiles/${username}`);
+    console.log(response.data);
 }

@@ -1,7 +1,7 @@
 import {Action, getModule, Module, Mutation, VuexModule} from "vuex-module-decorators";
 import {IProfile, IUser, IUserSubmit} from "@/store/modules";
 import {store} from '@/store';
-import {loginUser} from "@/store/api";
+import * as api from "@/store/api";
 
 @Module({
     name: 'user',
@@ -26,9 +26,19 @@ class UsersModule extends VuexModule {
     @Action({commit: 'setUser'})
     async login(userSubmit: IUserSubmit) {
         console.log(userSubmit);
-        const user = await loginUser(userSubmit);
+        const user = await api.loginUser(userSubmit);
         console.log(user);
         return user;
+    }
+
+    @Mutation
+    setProfile(profile: IProfile) {
+        this.profile = profile;
+    }
+
+    @Action({commit: 'setProfile'})
+    async loadProfile(username:string) {
+        const profle = await api.fetchProfile(username);
     }
 
 }

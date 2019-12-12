@@ -26,7 +26,7 @@
     export default class ArticlePreview extends Vue {
         @Prop() article?: Article
         created(){
-            console.log(this.article)
+            // console.log(this.article)
         }
     }
 </script>

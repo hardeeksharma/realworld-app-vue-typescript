@@ -7,10 +7,11 @@
                 <div class="row">
 
                     <div class="col-xs-12 col-md-10 offset-md-1">
-                        <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
+                        <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img"/>
                         <h4>Eric Simons</h4>
                         <p>
-                            Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the Hunger Games
+                            Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the
+                            Hunger Games
                         </p>
                         <button class="btn btn-sm btn-outline-secondary action-btn">
                             <i class="ion-plus-round"></i>
@@ -40,7 +41,7 @@
 
                     <div class="article-preview">
                         <div class="article-meta">
-                            <a href=""><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+                            <a href=""><img src="http://i.imgur.com/Qr71crq.jpg"/></a>
                             <div class="info">
                                 <a href="" class="author">Eric Simons</a>
                                 <span class="date">January 20th</span>
@@ -58,7 +59,7 @@
 
                     <div class="article-preview">
                         <div class="article-meta">
-                            <a href=""><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
+                            <a href=""><img src="http://i.imgur.com/N4VcUeJ.jpg"/></a>
                             <div class="info">
                                 <a href="" class="author">Albert Pai</a>
                                 <span class="date">January 20th</span>
@@ -78,7 +79,6 @@
                         </a>
                     </div>
 
-
                 </div>
 
             </div>
@@ -87,3 +87,19 @@
     </div>
 
 </template>
+
+<script lang="ts">
+
+    import {Vue, Component} from 'vue-property-decorator';
+    import {IProfile} from "@/store/modules";
+    import users from '@/store/modules/users'
+    @Component
+    export default class Profile extends Vue {
+        profile: IProfile | null = null;
+
+        created() {
+            console.log(this.$route.params.username);
+        }
+    }
+
+</script>
