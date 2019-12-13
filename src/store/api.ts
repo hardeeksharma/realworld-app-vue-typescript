@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ArticleResponse, IUser, IUserResponse, IUserSubmit} from "@/store/modules";
+import {ArticleResponse, IProfile, IUser, IUserResponse, IUserSubmit, ProfileResponse} from "@/store/modules";
 import {async} from "q";
 
 export const conduitApi = axios.create({
@@ -15,14 +15,16 @@ export function clearJwt() {
 }
 
 export async function loginUser(data: IUserSubmit): Promise<IUser | undefined> {
+    let response;
     try {
-        const response = await conduitApi.post('/users/login', {
+        response = await conduitApi.post('/users/login', {
             user: data
         });
         //console.log(response.data);
-        return (response.data as IUserResponse).user;
+        return (<IUserResponse>response.data).user;
     } catch (e) {
-        console.error(e)
+        console.log(e.response.data)
+        throw new Error("Login Error")
     }
 }
 
@@ -31,7 +33,8 @@ export async function getGlobalFeed() {
     return response.data as ArticleResponse;
 }
 
-export async function fetchProfile(username: string) {
+export async function fetchProfile(username: string): Promise<IProfile> {
     const response = await conduitApi.get(`/profiles/${username}`);
     console.log(response.data);
+    return (<ProfileResponse>response.data).profile
 }

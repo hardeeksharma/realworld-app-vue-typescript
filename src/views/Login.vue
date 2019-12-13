@@ -10,9 +10,9 @@
                         <router-link to="/register">Need an account?</router-link>
                     </p>
 
-                    <!--<ul class="error-messages">-->
-                    <!--<li>That email is already taken</li>-->
-                    <!--</ul>-->
+                    <ul v-if="loginError" class="error-messages">
+                        <li>{{loginError}}</li>
+                    </ul>
 
                     <form>
                         <fieldset class="form-group">
@@ -22,7 +22,7 @@
                             <input class="form-control form-control-lg" v-model="password" type="password"
                                    placeholder="Password">
                         </fieldset>
-                        <button @click="login" class="btn btn-lg btn-primary pull-xs-right">
+                        <button @click.prevent="login" class="btn btn-lg btn-primary pull-xs-right">
                             Sign In
                         </button>
                     </form>
@@ -42,12 +42,21 @@
     @Component
     export default class Login extends Vue {
 
-        email = '';
-        password = '';
+        email = ''
+        password = ''
+        loginError = ''
 
         login() {
             console.log(`Login with ${this.email}`)
-            user.login({email: this.email, password: this.password});
+            user.login({
+                email: this.email,
+                password: this.password
+            }).then(() => {
+                this.$router.push('/')
+            }).catch(err => {
+                this.loginError = "Invalid username of password";
+            })
+
         }
     }
 

@@ -25,10 +25,13 @@ class UsersModule extends VuexModule {
 
     @Action({commit: 'setUser'})
     async login(userSubmit: IUserSubmit) {
-        console.log(userSubmit);
-        const user = await api.loginUser(userSubmit);
-        console.log(user);
-        return user;
+        try {
+            const user = await api.loginUser(userSubmit);
+            return user;
+        } catch (e) {
+            throw new Error("Invalid email of password");
+        }
+
     }
 
     @Mutation
@@ -37,8 +40,9 @@ class UsersModule extends VuexModule {
     }
 
     @Action({commit: 'setProfile'})
-    async loadProfile(username:string) {
-        const profle = await api.fetchProfile(username);
+    async loadProfile(username: string) {
+        const profile = await api.fetchProfile(username);
+        return profile;
     }
 
 }
