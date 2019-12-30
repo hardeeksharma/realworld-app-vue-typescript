@@ -1,5 +1,5 @@
-import {Action, getModule, Module, Mutation, VuexModule} from "vuex-module-decorators";
-import {IProfile, IUser, IUserSubmit} from "@/store/modules";
+import {Action, getModule, Module, Mutation, MutationAction, VuexModule} from "vuex-module-decorators";
+import {IProfile, IUpdateUser, IUser, IUserSubmit} from "@/store/modules";
 import {store} from '@/store';
 import * as api from "@/store/api";
 
@@ -16,6 +16,7 @@ class UsersModule extends VuexModule {
 
     @Mutation
     setUser(user: IUser) {
+        console.log("Mutation called setUser")
         this.user = user
     }
 
@@ -25,8 +26,10 @@ class UsersModule extends VuexModule {
 
     @Action({commit: 'setUser'})
     async login(userSubmit: IUserSubmit) {
+
         try {
             const user = await api.loginUser(userSubmit);
+            user && api.setJWT(user.token);
             return user;
         } catch (e) {
             throw new Error("Invalid email of password");
@@ -45,6 +48,16 @@ class UsersModule extends VuexModule {
         return profile;
     }
 
+    @Action({commit: 'setUser'})
+    async updateProfile(updateUser: IUpdateUser) {
+        console.log("In module update user")
+        try {
+            const user = await api.updateProfile(updateUser);
+            return user
+        } catch (e) {
+            console.log("API error");
+        }
+    }
 }
 
 export default getModule(UsersModule);

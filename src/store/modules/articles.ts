@@ -3,24 +3,24 @@ import {store} from '@/store';
 import {Article} from "@/store/modules";
 import * as api from '@/store/api';
 
+type FeedType ='global' | 'user'
+
 @Module({
     dynamic: true,
     name: 'articles',
     namespaced: true,
     store,
 })
-
 class ArticlesModule extends VuexModule {
-    globalFeed: Article[] = []
-    userFeed: Article[] = []
+    feed: Article[] = []
 
     @Mutation
     setGlobalFeed(articles: Article[]) {
-        this.globalFeed = articles;
+        this.feed = articles;
     }
 
     @Action({commit: 'setGlobalFeed'})
-    async refreshGlobalFeed() {
+    async refreshFeed(feedType:FeedType) {
         const feed = await api.getGlobalFeed();
         return feed.articles
     }

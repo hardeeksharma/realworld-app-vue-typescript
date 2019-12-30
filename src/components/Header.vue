@@ -9,7 +9,7 @@
                 </li>
                 <li v-if="username" class="nav-item">
                     <router-link class="nav-link" to="/editor">
-                        <i class="ion-compose"></i>&nbsp;New Post
+                        <i class="ion-compose"></i>&nbsp;New Article
                     </router-link>
                 </li>
                 <li v-if="username" class="nav-item">

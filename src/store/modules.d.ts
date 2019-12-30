@@ -26,6 +26,14 @@ export interface IUserResponse {
     user: IUser
 }
 
+export interface IUpdateUser {
+    email?: string,
+    bio?: string,
+    username?: string,
+    image?: string,
+    password?: string
+}
+
 ///// ARTICLE TYPES /////
 
 export interface ArticleResponse {

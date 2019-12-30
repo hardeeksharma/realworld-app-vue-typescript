@@ -1,6 +1,15 @@
 import axios from 'axios';
-import {ArticleResponse, IProfile, IUser, IUserResponse, IUserSubmit, ProfileResponse} from "@/store/modules";
+import {
+    ArticleResponse,
+    IProfile,
+    IUpdateUser,
+    IUser,
+    IUserResponse,
+    IUserSubmit,
+    ProfileResponse
+} from "@/store/modules";
 import {async} from "q";
+import {purple} from "color-name";
 
 export const conduitApi = axios.create({
     baseURL: 'https://conduit.productionready.io/api'
@@ -37,4 +46,14 @@ export async function fetchProfile(username: string): Promise<IProfile> {
     const response = await conduitApi.get(`/profiles/${username}`);
     console.log(response.data);
     return (<ProfileResponse>response.data).profile
+}
+
+export async function updateProfile(updateUser: IUpdateUser) {
+    try {
+        const response = await conduitApi.put('/user', {user: updateUser});
+        return (<IUserResponse>response.data).user;
+    } catch (e) {
+        console.log("API Error : updateProfile")
+    }
+
 }
